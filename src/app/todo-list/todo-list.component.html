@@ -1,0 +1,62 @@
+<div>
+  <div>
+    <input [(ngModel)]="nomTache" />
+    <div class="btn" (click)="onClickAjouterTache()">
+      Ajouter une tâche
+    </div>
+  </div>
+  
+  <div>
+    <div class="btn" (click)="reset()">Réinitialiser</div>
+  </div>
+  
+  <div class="liste-categories">
+    @for (categorie of categories; track $index; let indexCategorie = $index) {
+      <div class="categorie">
+        <div class="en-tete">
+          <p>{{ categorie.nom }}</p>
+        </div>
+        <div class="contenu">
+          @for (
+            nomTache of categorie.taches;
+            track $index;
+            let indexTache = $index
+          ) {
+            <div class="tache">
+              <p>{{ nomTache }}</p>
+  
+              @if (indexCategorie != 0) {
+                <div
+                  class="btn plus"
+                  (click)="
+                    onClickChangementCategorie(indexCategorie, indexTache, false)
+                  "
+                >
+                  +
+                </div>
+              }
+              @if (indexCategorie < categories.length - 1) {
+                <div
+                  class="btn moins"
+                  (click)="
+                    onClickChangementCategorie(indexCategorie, indexTache, true)
+                  "
+                >
+                  -
+                </div>
+              }
+  
+              <div
+                class="btn supprime"
+                (click)="onClickSupprime(indexCategorie, indexTache)"
+              >
+                X
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+
+</div>
